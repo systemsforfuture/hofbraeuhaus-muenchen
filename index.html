@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hofbräuhaus München — Das Original seit 1589</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0C08;
+    --bg2: #141209;
+    --bg3: #1A1710;
+    --surface: #1F1C14;
+    --border: rgba(184,140,42,0.18);
+    --gold: #B88C2A;
+    --gold2: #D4A843;
+    --cream: #E8DFC8;
+    --text: #C8BFA8;
+    --muted: #7A7060;
+    --white: #F0EAD8;
+    --blue: #1A3A5C;
+    --blue2: #2A5480;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(14,12,8,0.96);
+    backdrop-filter: blur(20px);
+    padding: 1rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gold2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-logo span {
+    font-weight: 300;
+    color: var(--cream);
+    font-style: italic;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold2); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.6rem 1.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(184,140,42,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(26,58,92,0.12) 0%, transparent 50%),
+      linear-gradient(160deg, #0E0C08 0%, #141209 50%, #0A0908 100%);
+  }
+  /* Bavarian diamond pattern */
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 30px),
+      repeating-linear-gradient(-45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 30px);
+  }
+  .hero-year {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 4rem;
+    max-width: 900px;
+    padding-top: 8rem;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: rgba(184,140,42,0.1);
+    border: 1px solid rgba(184,140,42,0.3);
+    padding: 0.5rem 1.2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold2);
+    margin-bottom: 2.5rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .hero-title .accent { color: var(--gold2); }
+  .hero-title .italic { font-style: italic; font-weight: 300; }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    margin-top: 0.5rem;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--text);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 0.9rem 2.4rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--gold2); }
+  .btn-ghost {
+    border: 1px solid rgba(200,191,168,0.3);
+    color: var(--cream);
+    padding: 0.9rem 2.4rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
+  .hero-numbers {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 38%;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem;
+    border-left: 1px solid var(--border);
+  }
+  .stat-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-bottom: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--gold2);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; }
+  .section-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title .italic { font-style: italic; font-weight: 300; }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 2rem 0;
+  }
+
+  /* HISTORY */
+  .history {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .history-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .history-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--gold);
+    padding-top: 0.1rem;
+  }
+  .timeline-text {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .timeline-text strong {
+    color: var(--cream);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+  }
+
+  /* ATMOSPHÄRE CARDS */
+  .atmo {
+    background: var(--bg);
+  }
+  .atmo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 3rem;
+    border: 1.5px solid var(--border);
+  }
+  .atmo-card {
+    background: var(--surface);
+    padding: 2.5rem 2rem;
+    border: none;
+    transition: background 0.3s;
+  }
+  .atmo-card:hover { background: #252118; }
+  .atmo-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .atmo-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .atmo-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* SPEISEKARTE */
+  .menu {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+  }
+  .menu-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .menu-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .menu-col h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--gold2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(184,140,42,0.08);
+    gap: 1rem;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-name {
+    font-size: 0.92rem;
+    color: var(--cream);
+  }
+  .menu-item-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* BIER SECTION */
+  .bier {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .bier-types {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .bier-type {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .bier-type:hover { border-color: var(--gold); }
+  .bier-icon { font-size: 1.8rem; }
+  .bier-type-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+  }
+  .bier-type-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  .bier-preis {
+    margin-left: auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+
+  /* ÖFFNUNGSZEITEN */
+  .hours {
+    background: var(--bg);
+  }
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .hours-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+  }
+  .hours-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--gold2);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(184,140,42,0.08);
+    font-size: 0.9rem;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--muted); }
+  .hours-time { color: var(--cream); font-weight: 400; }
+  .hours-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 1.2rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(184,140,42,0.12);
+    border: 1px solid rgba(184,140,42,0.3);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--gold2);
+    margin-top: 1rem;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .contact-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+  .contact-item-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .contact-item-value {
+    font-size: 0.95rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .reserve-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+  }
+  .reserve-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .reserve-box p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--gold2);
+    letter-spacing: 0.1em;
+  }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav.scrolled { padding: 0.8rem 1.5rem; }
+    .nav-links, .hero-numbers { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .hero-content { padding: 0 1.5rem; padding-top: 7rem; }
+    .hero-title { font-size: 3.5rem; }
+    .history-grid, .bier-grid, .contact-grid, .hours-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .menu-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .atmo-grid { grid-template-columns: 1fr; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Hofbräuhaus <span>München</span></a>
+  <ul class="nav-links">
+    <li><a href="#history">Geschichte</a></li>
+    <li><a href="#speise">Speisekarte</a></li>
+    <li><a href="#bier">Bier</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="tel:+498929013610" class="nav-cta">Reservierung</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-year">Seit 1589 · Am Platzl · München</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Das Original · Weltberühmt · Täglich geöffnet</div>
+    <h1 class="hero-title">
+      Hof<span class="accent">bräu</span><br>
+      <span class="italic">haus</span>
+    </h1>
+    <p class="hero-subtitle">Bayerische Gastlichkeit seit 1589</p>
+    <p class="hero-desc">
+      Kein Ort in München ist so lebendig, so laut und so echt. Das Hofbräuhaus am Platzl empfängt täglich Gäste aus aller Welt mit frisch gezapftem Hofbräu, deftigem Essen und Blasmusik — genau so, wie es seit 435 Jahren ist.
+    </p>
+    <div class="hero-actions">
+      <a href="tel:+498929013610" class="btn-primary">+49 89 290136100</a>
+      <a href="#speise" class="btn-ghost">Speisekarte ansehen</a>
+    </div>
+  </div>
+
+  <div class="hero-numbers">
+    <div class="stat-item">
+      <div class="stat-num">1589</div>
+      <div class="stat-label">Gründungsjahr</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">tägl.</div>
+      <div class="stat-label">11:00 – 00:00 Uhr</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3.500</div>
+      <div class="stat-label">Sitzplätze</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1 Maß</div>
+      <div class="stat-label">Hofbräu Original</div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="history" id="history">
+  <div class="history-grid">
+    <div>
+      <div class="section-tag">Geschichte</div>
+      <h2 class="section-title">Über <span class="italic">vier Jahrhunderte</span><br>Münchner Geschichte</h2>
+      <div class="divider"></div>
+      <p class="section-sub">
+        Das Hofbräuhaus ist mehr als ein Gasthaus — es ist ein Stück München. Gegründet als herzogliche Brauerei, ist es heute das bekannteste Wirtshaus der Welt und ein Symbol bayerischer Lebensfreude.
+      </p>
+    </div>
+    <div class="history-timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1589</div>
+        <div class="timeline-text">
+          <strong>Gründung durch Herzog Wilhelm V.</strong>
+          Der Wittelsbach-Herzog gründet eine Hofbrauerei für dunkles Weißbier — ausschließlich für den Hof.
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1607</div>
+        <div class="timeline-text">
+          <strong>Erstes Weißbier</strong>
+          Maximilian I. beauftragt die Brauerei mit der Produktion von Weißbier — ein Privileg des Herrscherhauses.
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1828</div>
+        <div class="timeline-text">
+          <strong>Öffnung für das Volk</strong>
+          König Ludwig I. öffnet das Hofbräuhaus für die Münchner Bevölkerung. Der Bierpreis: 6 Kreuzer pro Maß.
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1896</div>
+        <div class="timeline-text">
+          <strong>Das heutige Gebäude</strong>
+          Das Festsaalgebäude am Platzl 9 wird eröffnet — und ist bis heute der Inbegriff bayerischen Gastgewerbes.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHÄRE -->
+<section class="atmo">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">Erlebnis</div>
+    <h2 class="section-title">Drei Räume,<br><span class="italic">ein Gefühl</span></h2>
+    <div class="atmo-grid">
+      <div class="atmo-card">
+        <span class="atmo-icon">🍺</span>
+        <h3>Die Schwemme</h3>
+        <p>Das Herzstück des Hauses. Lange Biertische, Blasmusik täglich von 12–16 Uhr und 18–23:30 Uhr, der Duft von frischem Bier und Brezeln — das ist die Schwemme.</p>
+      </div>
+      <div class="atmo-card">
+        <span class="atmo-icon">🏛️</span>
+        <h3>Der Festsaal</h3>
+        <p>Im ersten Stock thront der legendäre Festsaal — mit Gewölbedecke, bemalten Wänden und Platz für Feiern, Bankette und Oktoberfest-Stimmung das ganze Jahr.</p>
+      </div>
+      <div class="atmo-card">
+        <span class="atmo-icon">🌿</span>
+        <h3>Der Biergarten</h3>
+        <p>Der Innenhof-Biergarten bietet im Sommer Platz unter Kastanien. Helles vom Fass, Weißwurst und bayerische Sonne — München pur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEISEKARTE -->
+<section class="menu" id="speise">
+  <div class="menu-header">
+    <div>
+      <div class="section-tag">Speisekarte</div>
+      <h2 class="section-title">Bayerische <span class="italic">Schmankerl</span></h2>
+    </div>
+  </div>
+  <div class="menu-cols">
+    <div class="menu-col">
+      <h3>Vorspeisen</h3>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Obatzda mit Brezn</div>
+          <div class="menu-item-desc">Bayerischer Käse, Butter, Paprika, Zwiebeln</div>
+        </div>
+        <div class="menu-item-price">€ 8</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Weißwurst (2 Stück)</div>
+          <div class="menu-item-desc">Mit Brezn, süßem Senf</div>
+        </div>
+        <div class="menu-item-price">€ 12</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Leberknödelsuppe</div>
+          <div class="menu-item-desc">Bayerische Rindsbrühe, Leberknödel</div>
+        </div>
+        <div class="menu-item-price">€ 7</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Wurstsalat</div>
+          <div class="menu-item-desc">Lyoner, Zwiebeln, Essig-Öl</div>
+        </div>
+        <div class="menu-item-price">€ 11</div>
+      </div>
+    </div>
+    <div class="menu-col">
+      <h3>Hauptspeisen</h3>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Schweinshaxe</div>
+          <div class="menu-item-desc">Resch gebacken, Kartoffelknödel, Sauerkraut</div>
+        </div>
+        <div class="menu-item-price">€ 22</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Rinderzwiebelrostbraten</div>
+          <div class="menu-item-desc">Geröstete Zwiebeln, Kartoffelknödel</div>
+        </div>
+        <div class="menu-item-price">€ 24</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Spanferkel</div>
+          <div class="menu-item-desc">Bayerischer Klassiker, Kartoffeln</div>
+        </div>
+        <div class="menu-item-price">€ 19</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Käsespätzle</div>
+          <div class="menu-item-desc">Hausgemachte Spätzle, Bergkäse, Röstzwiebeln</div>
+        </div>
+        <div class="menu-item-price">€ 16</div>
+      </div>
+    </div>
+    <div class="menu-col">
+      <h3>Desserts & Snacks</h3>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Apfelstrudel</div>
+          <div class="menu-item-desc">Warm, mit Vanillesoße, Sahne</div>
+        </div>
+        <div class="menu-item-price">€ 9</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Dampfnudel</div>
+          <div class="menu-item-desc">Vanillesoße, bayerische Tradition</div>
+        </div>
+        <div class="menu-item-price">€ 8</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Brezn</div>
+          <div class="menu-item-desc">Frisch gebacken, mit Butter</div>
+        </div>
+        <div class="menu-item-price">€ 4</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="menu-item-name">Radieschen-Schnitte</div>
+          <div class="menu-item-desc">Frische Radieschen, Butter, Salz</div>
+        </div>
+        <div class="menu-item-price">€ 5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIER -->
+<section class="bier" id="bier">
+  <div class="bier-grid">
+    <div>
+      <div class="section-tag">Vom Fass</div>
+      <h2 class="section-title">Hofbräu<br><span class="italic">Bierspezialitäten</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">
+        Das Hofbräu Original wird direkt im Haus gezapft — frisch, kalt, unfiltriert. Seit 1589 nach dem Reinheitsgebot gebraut: Wasser, Malz, Hopfen, Hefe. Nichts weiter.
+      </p>
+    </div>
+    <div class="bier-types">
+      <div class="bier-type">
+        <span class="bier-icon">🍺</span>
+        <div>
+          <div class="bier-type-name">HB Original</div>
+          <div class="bier-type-desc">Das Münchner Helle — klar, mild, goldgelb</div>
+        </div>
+        <div class="bier-preis">€ 9,90 / Maß</div>
+      </div>
+      <div class="bier-type">
+        <span class="bier-icon">🌾</span>
+        <div>
+          <div class="bier-type-name">HB Weißbier</div>
+          <div class="bier-type-desc">Unfiltriert, trüb, fruchtig-würzig</div>
+        </div>
+        <div class="bier-preis">€ 5,80 / 0,5l</div>
+      </div>
+      <div class="bier-type">
+        <span class="bier-icon">🌙</span>
+        <div>
+          <div class="bier-type-name">HB Dunkel</div>
+          <div class="bier-type-desc">Röstaromen, vollmundig, tief</div>
+        </div>
+        <div class="bier-preis">€ 5,80 / 0,5l</div>
+      </div>
+      <div class="bier-type">
+        <span class="bier-icon">✨</span>
+        <div>
+          <div class="bier-type-name">HB Maibock</div>
+          <div class="bier-type-desc">Saisonal, stark, gold-bernsteinfarben</div>
+        </div>
+        <div class="bier-preis">€ 6,20 / 0,5l</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÖFFNUNGSZEITEN -->
+<section class="hours" id="hours">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center; margin-bottom:3rem;">
+      <div class="section-tag" style="justify-content:center;display:block;">Öffnungszeiten</div>
+      <h2 class="section-title" style="text-align:center;">Täglich für Sie<br><span class="italic">geöffnet</span></h2>
+    </div>
+    <div class="hours-grid" style="max-width:800px;">
+      <div class="hours-card">
+        <div class="hours-card-title">Restaurant & Schwemme</div>
+        <div class="hours-row">
+          <span class="hours-day">Montag – Sonntag</span>
+          <span class="hours-time">11:00 – 00:00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Küche</span>
+          <span class="hours-time">11:00 – 23:00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Feiertage</span>
+          <span class="hours-time">11:00 – 00:00</span>
+        </div>
+        <p class="hours-note">Kein Ruhetag — 365 Tage im Jahr geöffnet, auch an Weihnachten und Silvester.</p>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Blasmusik tägl. 12–16 Uhr & 18–23:30 Uhr
+        </div>
+      </div>
+      <div class="hours-card">
+        <div class="hours-card-title">Reservierungen</div>
+        <div class="hours-row">
+          <span class="hours-day">Telefon</span>
+          <span class="hours-time">+49 89 290136100</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">E-Mail</span>
+          <span class="hours-time">willkommen@hofbraeuhaus.de</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Online</span>
+          <span class="hours-time">hofbraeuhaus.de</span>
+        </div>
+        <p class="hours-note">Für Gruppen ab 10 Personen empfehlen wir eine Reservierung. Der Festsaal kann für private Veranstaltungen gebucht werden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact" id="kontakt">
+  <div class="contact-grid">
+    <div>
+      <div class="section-tag">Kontakt & Anfahrt</div>
+      <h2 class="section-title">Am Herzen<br><span class="italic">Münchens</span></h2>
+      <div class="divider"></div>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Adresse</div>
+            <div class="contact-item-value">Platzl 9<br>80331 München</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Telefon</div>
+            <div class="contact-item-value">+49 89 290136100</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-item-label">E-Mail</div>
+            <div class="contact-item-value">willkommen@hofbraeuhaus.de</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🚇</div>
+          <div>
+            <div class="contact-item-label">Anfahrt</div>
+            <div class="contact-item-value">U-Bahn Marienplatz (U3/U6, S1–S8)<br>5 Min. Fußweg zum Platzl</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reserve-box">
+      <h3>Platz reservieren</h3>
+      <p>Für Gruppen, Feiern oder einen besonderen Abend in der Schwemme — wir freuen uns auf Ihre Anfrage.</p>
+      <a href="tel:+498929013610" class="btn-primary" style="display:block;text-align:center;">Jetzt anrufen</a>
+      <div style="margin-top:1rem; text-align:center; font-size:0.8rem; color:var(--muted);">oder</div>
+      <a href="mailto:willkommen@hofbraeuhaus.de" class="btn-ghost" style="display:block;text-align:center;margin-top:1rem;">Per E-Mail anfragen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Hofbräuhaus München — Seit 1589</div>
+  <div class="footer-copy">Platzl 9 · 80331 München · +49 89 290136100</div>
+  <div class="footer-copy">© 2024 Hofbräuhaus München</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+</body>
+</html>
